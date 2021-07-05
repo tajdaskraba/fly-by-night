@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="sl">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Fly by night</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<style>
+	h1 {
+		text-align: center;
+	}
+	
+	body {
+		width: 100%;
+		height: 100%;
+		background: #eee;
+	}
+	
+	div.menu {
+		margin: 5% 10%;
+		background: transparent;
+	}
+	
+	a,
+	#showall {
+		display: inline-block;
+		margin: 0 1%;
+		padding: 2%;
+		border-radius: 6px;
+		-webkit-box-shadow: 0px 3px 11px 2px rgba(0, 0, 0, 0.2);
+		-moz-box-shadow: 0px 3px 11px 2px rgba(0, 0, 0, 0.2);
+		box-shadow: 0px 3px 11px 2px rgba(0, 0, 0, 0.2);
+	}
+	
+	a:nth-child(1) {
+		background: #F1FAEE;
+		color: #222;
+	}
+	
+	a:nth-child(2) {
+		background: #A8DADC;
+		color: #222;
+	}
+	
+	a:nth-child(3) {
+		background: #457B9D;
+		color: #eee;
+	}
+	
+	a:nth-child(4) {
+		background: #1D3557;
+		color: #eee;
+	}
+	
+	.cnt {
+		margin: 5% 10%;
+		background: transparent;
+	}
+	
+	p {
+		text-align: center;
+	}
+	
+	div {
+		text-align: center;
+	}
+	
+	.parent {
+		padding: 1rem;
+	}
+	
+	.child {
+		border-radius: 6px;
+		border: 2px solid #A8DADC;
+		padding: 1rem;
+	}
+	
+	.inline-block-child {
+		display: inline-block;
+	}
+	
+	.center {
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	table {
+		font-family: arial, sans-serif;
+		width: 40%;
+		border-collapse: separate;
+	}
+	
+	td {
+		text-align: center;
+		padding: 8px;
+	}
+	
+	tr:nth-child(odd) {
+		background-color: #457B9D;
+	}
+	
+	tr:nth-child(even) {
+		background-color: #457B9D;
+	}
+	
+	tr:hover {
+		background-color: #A8DADC;
+	}
+	
+	th {
+		color: white;
+		background: white;
+		padding: 10px;
+		border: 1px solid white;
+		border-radius: 6px;
+		background-color: white;
+	}
+	
+	.button1 {
+		background-color: #457B9D;
+		border: none;
+		color: white;
+		padding: 18px 26px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 5px 3px;
+		cursor: pointer;
+		border-radius: 6px;
+	}
+	</style>
+</head>
+
+<body style="background-color:#3a3b3c;">
+	<br>
+	<br>
+	<h1 style="color:white">
+    Fly by night
+</h1>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<div class="menu"> <a class="showSingle" target="1" onClick="allFlights();">All flights</a> <a class="showSingle" target="2">Select origin and destination</a> <a class="showSingle" target="3">Book seats</a> <a class="showSingle" target="4">About</a> </div>
+	<section class="cnt">
+		<!--  all flights  -->
+		<div id="div1" hidden class="targetDiv showSingle">
+			<table id="tabelaB" align="center" class="center"> </table>
+		</div>
+		<!--  select origin and destination  -->
+		<div id="div2" hidden class="targetDiv">
+			<form>
+				<div class='parent'>
+					<div class='child inline-block-child'>
+						<label for="fname" style="color:white">Origin:</label>
+						<input type="text" id="origin" name="fname" value="*" size="8"> </div>
+					<div class='child inline-block-child'>
+						<label for="lname" style="color:white">Destination:</label>
+						<input type="text" id="destination" name="lname" value="*" size="8"> </div>
+				</div>
+			</form>
+			<br>
+			<button onclick="server();" class="button1">Send request</button>
+			<br>
+			<br>
+			<div id="izpis1" style="color:white"></div>
+			<table id="tabelaA" align="center" class="center"> </table>
+		</div>
+		<!--  book seats  -->
+		<div id="div3" hidden class="targetDiv" style="color:white">
+			<form>
+				<div class='parent'>
+					<div class='child inline-block-child'>
+						<label for="fname" style="color:white">Flight number:</label>
+						<input type="text" id="origin" name="fname" value="SA001" size="8"> </div>
+					<div class='child inline-block-child'>
+						<label for="lname" style="color:white">Number of seats:</label>
+						<input type="text" id="numberOfSeats" name="lname" value="1" size="8"> </div>
+				</div>
+			</form>
+        </div>
+		<!--  about  -->
+		<div id="div4" hidden class="targetDiv" style="color:white"> Assignment instructions
+            <p>Architecturally, the application is a traditional client-server system. There are three key parts: the server-side database with network server functionality, the client-side graphical user interface, and a client-side database client part that handles the networking on behalf of the user interface.
+
+                Additionally, the program must be able to work in a non-networked mode. In this mode, the database and user interface run in the same VM and no networking is performed. The user must be able to select the operating mode, although it is acceptable that the program stay in one mode once it has started up.
+                
+                You have a choice regarding the network connection protocol. You may use either serialized objects over a simple socket connection, or you may use RMI. Your submission will fail automatically if you do not use one of these approaches.
+                
+                The remote client code that you write must provide all the public methods of the suncertify.db.Data class.</p>
+			<p style="color:white"> The user should be able to select the origin and destination of flights, and the display should update to show only flights that satisfy those criteria. The user must be able to describe "any" for the origin, destination, or both, so as to implement a wildcard-like feature. </p>
+			<p>The user must be able to book one or more seats on a chosen flight. If the flight cannot provide those seats, the user must be informed. It is not necessary to provide for live updates on multiple clients when new bookings are made at other clients. </p>
+		</div>
+	</section>
+
+	<body>
+		<br>
+		<script>
+		function allFlights() {
+			var params = "var1=" + "*" + "&var2=" + "*" + "&var3=" + "";
+			xmlhttp = new XMLHttpRequest();
+			xmlhttp.open("GET", "http://192.168.50.128:80/pridobibesedo" + "?" + params, true); // true - request se obravnava asynchrono.
+			xmlhttp.onreadystatechange = function() {
+				if(xmlhttp.readyState == 4 && xmlhttp.status == 200) { // 4: request finished and response is read | 200 OK success status
+					beseda = xmlhttp.responseText;
+
+                    beseda = beseda.replace("[", "");
+					beseda = beseda.split("]<br>[");
+					beseda = beseda.join(',');
+					beseda = beseda.replace("]<br>", "");
+					var parsiraniString = [];
+
+                    var tabelaRef = document.getElementById("tabelaB");
+					tabelaRef.innerHTML = "";
+
+                    var nizTmp = ["Flight number", "Origin airport", "Destination airport", "Carrier", "Price", "Day", "Time", "Duration", "Available seats"];
+					createHeader("tabelaB", nizTmp);
+					parsiraniString = beseda.split(",");
+					var stevec = 0;
+					for(var i = 0; i < parsiraniString.length; i++) {
+						console.log(parsiraniString[i]);
+						if(stevec == 8) {
+							niz[stevec] = parsiraniString[i];
+							dodajVrstico("tabelaB", niz);
+							stevec = 0;
+						} else {
+							niz[stevec] = parsiraniString[i];
+							stevec++;
+						}
+					}
+				}
+			}
+			xmlhttp.send();
+		}
+		jQuery(function() {
+			jQuery('#showall').click(function() {
+				jQuery('.targetDiv').show();
+			});
+			jQuery('.showSingle').click(function() {
+				jQuery('.targetDiv').hide();
+				jQuery('#div' + $(this).attr('target')).show();
+			});
+		});
+
+		var niz = new Array();
+
+		function server() {
+			var par1 = document.getElementById("origin").value;
+			var par2 = document.getElementById("destination").value;
+			var par3 = document.getElementById("numberOfSeats").value;
+			var params = "var1=" + par1.toUpperCase() + "&var2=" + par2.toUpperCase() + "&var3=" + par3;
+
+            var tabelaRef = document.getElementById("tabelaA");
+			tabelaRef.innerHTML = "";
+
+            var nizTmp = ["Flight number", "Origin airport", "Destination airport", "Carrier", "Price", "Day", "Time", "Duration", "Available seats"];
+			createHeader("tabelaA", nizTmp);
+			xmlhttp = new XMLHttpRequest();
+			xmlhttp.open("GET", "http://192.168.50.128:80/pridobibesedo" + "?" + params, true); // true - request se obravnava asynchrono.
+			xmlhttp.onreadystatechange = function() {
+				if(xmlhttp.readyState == 4 && xmlhttp.status == 200) { // 4: request finished and response is read | 200 OK success status
+					beseda = xmlhttp.responseText;
+					beseda = beseda.replace("[", "");
+					beseda = beseda.split("]<br>[");
+					beseda = beseda.join(',');
+					beseda = beseda.replace("]<br>", "");
+					var parsiraniString = [];
+					parsiraniString = beseda.split(",");
+					var stevec = 0;
+					for(var i = 0; i < parsiraniString.length; i++) {
+						console.log(parsiraniString[i]);
+						if(stevec == 8) {
+							niz[stevec] = parsiraniString[i];
+							dodajVrstico("tabelaA", niz);
+							stevec = 0;
+						} else {
+							niz[stevec] = parsiraniString[i];
+							stevec++;
+						}
+					}
+				}
+			}
+			xmlhttp.send();
+		}
+
+		function dodajVrstico(idTabele, niz) {
+			var tabelaRef = document.getElementById(idTabele);
+			var node = document.createElement("tr");
+			for(var i = 0; i < niz.length; i++) {
+				var novaCelica = node.insertCell(i);
+				var novTekst = document.createTextNode(niz[i]);
+				novaCelica.appendChild(novTekst);
+			}
+			tabelaRef.insertBefore(node, tabelaRef.childNodes[0]);
+		}
+
+		function createHeader(idTabele, niz) {
+			var tabelaRef = document.getElementById(idTabele);
+			var header = tabelaRef.createTHead();
+			var row = header.insertRow(0);
+			for(var i = 0; i < niz.length; i++) {
+				var novaCelica = row.insertCell(i);
+				var novTekst = document.createTextNode(niz[i]);
+				novaCelica.appendChild(novTekst);
+			}
+		}
+		</script>
+	</body>
+</html>
